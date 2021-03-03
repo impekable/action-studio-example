@@ -1,28 +1,28 @@
 name: 'Deploy to Studio'
-  on:
-    create:
-      branches:
-        - 'studio/*'
-    pull_request:
-      types: [ closed ]
-      branches:
-        - 'main'
-        - 'master'
-
-    run_studio_control:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v2
-        - name: Create and Deploy
-          uses: impekable/actions-studio@main
-          with:
-            twilio-master-flow-sid: ${{ secrets.TWILIO_MASTER_FLOW_SID }}
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-          env:
-            TWILIO_ACCOUNT_SID_PRODUCTION: ${{ secrets.TWILIO_ACCOUNT_SID_PRODUCTION }}
-            TWILIO_API_KEY_PRODUCTION: ${{ secrets.TWILIO_API_KEY_PRODUCTION }}
-            TWILIO_API_SECRET_PRODUCTION: ${{ secrets.TWILIO_API_SECRET_PRODUCTION }}
-            TWILIO_ACCOUNT_SID_DEVELOPMENT: ${{ secrets.TWILIO_ACCOUNT_SID_DEVELOPMENT }}
-            TWILIO_API_KEY_DEVELOPMENT: ${{ secrets.TWILIO_API_KEY_DEVELOPMENT }}
-            TWILIO_API_SECRET_DEVELOPMENT: ${{ secrets.TWILIO_API_SECRET_DEVELOPMENT }}
+on:
+  create:
+    branches:
+      - 'studio/*'
+  pull_request:
+    types: [ closed ]
+    branches:
+      - 'main'
+      - 'master'
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Create and Deploy
+        uses: impekable/actions-studio@main
+        with:
+          twilio-master-flow-sid: ${{ secrets.TWILIO_MASTER_FLOW_SID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          TWILIO_ACCOUNT_SID_PRODUCTION: ${{ secrets.TWILIO_ACCOUNT_SID_PRODUCTION }}
+          TWILIO_API_KEY_PRODUCTION: ${{ secrets.TWILIO_API_KEY_PRODUCTION }}
+          TWILIO_API_SECRET_PRODUCTION: ${{ secrets.TWILIO_API_SECRET_PRODUCTION }}
+          TWILIO_ACCOUNT_SID_DEVELOPMENT: ${{ secrets.TWILIO_ACCOUNT_SID_DEVELOPMENT }}
+          TWILIO_API_KEY_DEVELOPMENT: ${{ secrets.TWILIO_API_KEY_DEVELOPMENT }}
+          TWILIO_API_SECRET_DEVELOPMENT: ${{ secrets.TWILIO_API_SECRET_DEVELOPMENT }}
